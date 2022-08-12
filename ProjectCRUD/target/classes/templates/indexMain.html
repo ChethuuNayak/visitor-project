@@ -1,93 +1,215 @@
 
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"></html>
 <head>
 <meta charset="ISO-8859-1">
 <title>Visitor's Management System</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
-      crossorigin="anonymous">
+
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+<style>
+.dateSearch {
+	position: absolute;
+	left: 40%; top:25%;
+}
+
+.new{
+ position:absolute;
+ left:82%;
+top:7%;
+}
+
+
+
+
+</style>
 </head>
-<body>
+<body></body>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-  <!-- Brand -->
-  <a class="navbar-brand" href="#">Visitors's Management System</a>
+	<!-- Brand -->
+	<a class="navbar-brand" href="#">Visitors's Management System</a>
 
-  <!-- Toggler/collapsibe Button -->
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+	<!-- Toggler/collapsibe Button -->
+	<button class="navbar-toggler" type="button" data-toggle="collapse"
+		data-target="#collapsibleNavbar">
+		<span class="navbar-toggler-icon"></span>
+	</button>
 
-  <!-- Navbar links -->
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/visitors}">visitor database</a>
-      </li>
-    </ul>
-  </div>
+	<!-- Navbar links -->
+	<div class="collapse navbar-collapse" id="collapsibleNavbar">
+		<ul class="navbar-nav">
+			<li class="nav-item"><a class="nav-link" th:href="@{/visitors}">visitor
+					database</a></li>
+		</ul>
+	</div>
 </nav>
-<br> <br>
 
+<div class="container">
 
+	<div
+		class="row height d-flex justify-content-center align-items-center">
 
-  
-  <div class="container">
-  <div class="row">
-  <h1>List of Visitors</h1>
+		<div class="col-md-6">
+
+			<div class="form">
+				<i class="fa fa-search"></i>
+
+				<form th:action="@{/visitors/search/{visitorName}}"
+					th:object="${visitorName}">
+					<div class="form-group">
+						<input type="text" name="visitorName"
+							class="form-control form-input" placeholder="Search by name">
+						<button class="btn btn-primary">Search</button>
+
+					</div>
+				</form>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+
+<br>
+<div class="container">
+	<div
+		class="row height d-flex justify-content-center align-items-center">
+		<div class="col-md-6">
+			<div class="form">
+				<i class="fas fa-search"></i>
+
+				<form th:action="@{/visitors/card/{cardNo}}" th:object="${cardNo}">
+					<div class="form-group">
+						<input type="text" name="cardNo" class="form-control form-input"
+							placeholder="Search by cardNo" />
+						<button class="btn btn-primary">Search</button>
+					</div>
+				</form>
+			</div>
+
+		</div>
+	</div>
+
+	<br>
  
-  </div>
-  
  
- <div class="row"> 
-  <div class="col-lg-3">
- <a th:href ="@{visitors/new}" class="btn btn-primary btn-sm mb-3"> Add Visitor</a>
-  </div>
+   <div class="contain">
+
+	<div class="dateSearch">
+	
+		<h2>Search by date</h2>
+
+	</div>
+	<div
+		class="row height d-flex justify-content-center align-items-center">
+
+		<div class="col-md-6">
+
+			<div class="form">
+				<i class="fa fa-search"></i>
+
+				<form class="form-inline"
+					th:action="@{/visitors/details/{date1}/{date2}}"
+					th:object="${date}">
+					<div class="form-group">
+						<input type="date" name="date1" class="form-control form-input"
+							placeholder="date from">
+						<div class="form-group">
+							<input type="date" name="date2" class="form-control form-input"
+								placeholder="date to">
+							<button class="btn btn-primary">Search</button>
+
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+</div>
+	</div>
+
+<br>
+<div class="new">
+	<div
+		class="row height d-flex justify-content-center align-items-center">
+		
+		 <form class="form-inline" th:action="@{/visitors/{allowStatus}}" th:object="${allow}">
+    
+ <div class="form-group">
+ <label><b>search by allow status </b> 
+ <select name="allowStatus">
+ <option value="true">enable</option>
+ 
+ <option value="false">disable</option>
+ 
+ </select>
+
+ </label>
  
  </div>
-  <table class="table table-stripped table-bordered">
-  <thead class="table-dark">
-  <tr>
-  <th>Visitor</th>
-  <th>cardNo</th>
-  <th>date</th>
-  <th>allow status</th>
-  <th>Action </th>
-  </tr>
-  </thead>
-  
-  <tbody>
-  <tr th:each ="visitor: ${visitors}" >
-      <td th:text = "${visitor.visitorName}"></td>
-      <td th:text = "${visitor.cardNo}"></td>
-      <td th:text = "${visitor.date}"></td>
-      <td th:text = "${visitor.allowStatus}"></td>
-       
-       
-        <td>
-         <a th:href = "@{visitors/edit/{id}(id=${visitor.id})}"
-             class="btn btn-primary">Update</a>
-             
-               <a th:href = "@{/visitors/delete/{id}(id=${visitor.id})}"
-             class="btn btn-danger">Delete</a>
-             
-         
-         </td>
-             
-         
-         </td>
-       
-       
-  </tr>
-  
-  </tbody>
-  
-  </table>
-  
-  </div>
+    
+    <div class="box-footer">
+    <button type="search" class="btn btn-primary">search</button>
+    
+    </div>
+   
+		</form>  
+		
+		</div>
+
+</div>
+	<br>
+
+	<div class="container">
+		<div class="row">
+			<h1>List of Visitors</h1>
+
+		</div>
 
 
-</body>
-</html>
+		<div class="row">
+			<div class="col-lg-3">
+				<a th:href="@{visitors/new}" class="btn btn-primary btn-sm mb-3">
+					Add Visitor</a>
+			</div>
+
+		</div>
+		<table class="table table-bordered table-hover">
+			<thead class="table-dark">
+				<tr>
+					<th>Visitor</th>
+					<th>cardNo</th>
+					<th>date</th>
+					<th>allow status</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr th:each="visitor: ${visitors}">
+					<td th:text="${visitor.visitorName}"></td>
+					<td th:text="${visitor.cardNo}"></td>
+					<td th:text="${visitor.date}"></td>
+					<td th:text="${visitor.temp}"></td>
+
+					<td><a th:href="@{visitors/edit/{id}(id=${visitor.id})}"
+						class="btn btn-primary">Update</a> <a
+						th:href="@{/visitors/delete/{id}(id=${visitor.id})}"
+						class="btn btn-danger">Delete</a></td>
 
 
+					</td>
+
+
+				</tr>
+
+			</tbody>
+
+		</table>
+
+	</div>
+
+
+	</body>
+	</html>

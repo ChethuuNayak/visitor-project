@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>visitor get by allow status</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+ <div class="row"> 
+  <div class="col-lg-3">
+
+  </div>
+ 
+ </div>
+  <table class="table table-bordered table-hover">
+  <thead class="table-dark">
+  <tr>
+  <th>Visitor</th>
+  <th>cardNo</th>
+  <th>date</th>
+  <th>allow status</th>
+ 
+  </tr>
+  </thead>
+  
+  <tbody>
+  <tr th:each ="allowVisitor: ${allow}" >
+      <td th:text = "${allowVisitor.visitorName}"></td>
+      <td th:text = "${allowVisitor.cardNo}"></td>
+      <td th:text = "${allowVisitor.date}"></td>
+      <td th:text = "${allowVisitor.temp}">
+       
+  </tr>
+  
+  </tbody>
+  
+  </table>
+  
+  </div>
+
+
+
+
+
+</head>
+<body>
+
+</body>
+</html>

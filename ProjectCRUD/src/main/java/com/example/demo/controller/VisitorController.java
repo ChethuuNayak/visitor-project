@@ -1,5 +1,9 @@
 package com.example.demo.controller;
 
+import java.sql.Date;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.Visitor;
@@ -24,8 +29,7 @@ public class VisitorController {
 		super();
 		this.visitorService = visitorService;
 	}
-	
-	
+		
 	@GetMapping("/visitors")
 	public String page(Model model) {
 		model.addAttribute("visitors",visitorService.show());
@@ -41,7 +45,7 @@ public class VisitorController {
 	
 	
 	@PostMapping("/visitors")
-	public String add(@ModelAttribute("visitor") Visitor visitor) {
+	public String add(@Valid @ModelAttribute("visitor") Visitor visitor) {
 		visitorService.saveVisitor(visitor);
 		return "redirect:/visitors";
 	}
@@ -70,13 +74,33 @@ public class VisitorController {
 	public String delete(@PathVariable Integer id) {
 		visitorService.deleteById(id);
 		return "redirect:/visitors";
-		
+	}
+    
+	@GetMapping("/visitors/search/{visitorName}")
+	public String search(@RequestParam String visitorName,Model model) {
+		model.addAttribute("visitorName",visitorService.findByName(visitorName));
+		return "search";
 	}
 	
 	
+	@GetMapping("/visitors/card/{cardNo}")
+	public String card(@RequestParam int cardNo,Model model) {
+		model.addAttribute("cardNo", visitorService.findByCardNo(cardNo));
+		return "card";
+	}
 	
 	
+	@GetMapping("/visitors/details/{date1}/{date2}")
+	public String date(@RequestParam Date date1,@RequestParam Date date2, Model model) {
+		model.addAttribute("date",visitorService.findByDate(date1,date2));
+		return "date";
+	}
 	
+	@GetMapping("visitors/{allowStatus}")
+	public String allowStatus(@RequestParam("allowStatus") boolean allowStatus,Model model) {
+		model.addAttribute("allow",visitorService.findByAllowStatus(allowStatus));
+		return "allowStatus";
+	}
 	
 	
 }

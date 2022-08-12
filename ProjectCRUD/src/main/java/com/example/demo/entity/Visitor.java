@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="visit")
@@ -24,15 +26,29 @@ public class Visitor{
    @Column(name="allow")
    private boolean allowStatus;
    
-public Visitor() {
-	super();
-}
+   private String temp;
+   
+ 
+   
+
 public Visitor(String visitorName, int cardNo, Date date, boolean allowStatus) {
 	super();
 	this.visitorName = visitorName;
 	this.cardNo = cardNo;
 	this.date = date;
 	this.allowStatus = allowStatus;
+	
+}
+
+public Visitor() {
+	super();
+}
+
+public String getTemp() {
+	return temp;
+}
+public void setTemp(String temp) {
+	this.temp = temp;
 }
 public int getId() {
 	return id;

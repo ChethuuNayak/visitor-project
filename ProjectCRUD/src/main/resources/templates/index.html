@@ -1,84 +1,77 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
 <title>Visitor information</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
 </head>
 <body>
 
-  <div class="container">
-  <div class="row">
-  <h1 class="text-center">visitor information</h1>
- 
- <form th:action="@{/visitors}" th:object = "${visitor}" method="POST">
- <div class="form-group">
- <label>Visitor's Name
- <input
- type="text"
- name="visitorName"
- placeholder="enter the visitor's name"
- >
- </label>
- 
- </div>
- 
- <div class="form-group">
- <label>CardNo
- <input
- type="text"
- name="cardNo"
- placeholder="enter the cardNo"
- >
- </label>
- 
- </div>
- 
- 
- <div class="form-group">
- <label>date
- <input
- type="date"
- name="date"
- placeholder="set the date"
- >
- </label>
- 
- </div>
- 
- <div class="form-group">
- <label>allow status
- <input
- type="text"
- name="allowStatus"
- >
- <select name="status">
- <option value="activated">activated</option>
- 
- <option value="de-activated">de-activated</option>
- 
- </select>
+	<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+		<!-- Brand -->
+		<a class="navbar-brand" href="#">Visitor Management System</a>
 
- </label>
- 
- </div>
- 
- <br> <br>
- 
- 
- 
- 
-  <button type="submit" class="btn btn-primary">submit</button>
-    
- 
- </form>
-  
-  
-  </div>
-  
-  
-  </div>
+		<!-- Toggler/collapsibe Button -->
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#collapsibleNavbar">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<!-- Navbar links -->
+		<div class="collapse navbar-collapse" id="collapsibleNavbar">
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link" th:href="@{/visitors}">Visitor's
+						database</a></li>
+			</ul>
+		</div>
+	</nav>
+	<br>
+	<br>
+	<div class="container">
+		<div class="row">
+			<div
+				class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+				<h1 class="text-center">create visitor</h1>
+				<div class="card-body">
+					<form th:action="@{/visitors}" th:object="${visitor}" method="POST">
+						<div class="form-group">
+							<label>Visitor's Name </label> <input type="text"
+								name="visitorName" placeholder="enter the visitor's name"
+								class="form-control" minlength="5" required />
+						</div>
+
+						<div class="form-group">
+							<label>CardNo </label> <input type="number" name="cardNo"
+								placeholder="enter the cardNo" class="form-control" minlength="2" required />
+						</div>
 
 
+						<div class="form-group">
+							<label>date</label> <input type="date" name="date"
+								placeholder="set the date" class="form-control" required />
+						</div>
 
+						<div class="form-group">
+							<label>allow status</label> <select name="allowStatus">
+								<option value="true">enable</option>
+								<option value="false">disable</option>
+
+							</select>
+
+						</div>
+
+						<br>
+
+						<button type="submit" class="btn btn-primary">submit</button>
+
+					</form>
+
+				</div>
+
+
+			</div>
 </body>
 </html>
